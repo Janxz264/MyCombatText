@@ -1,0 +1,12 @@
+## Interface: 20502
+## Title: MyCombatText
+## Notes: Forces combat text CVars and mimics floating combat events
+## Author: Jan
+## Version: 0.1
+## SavedVariables: MyCombatTextDB
+
+cvars.lua
+config.lua
+textengine.lua
+events.lua
+core.lua
