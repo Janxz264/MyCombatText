@@ -1,25 +1,31 @@
 local function ShowCombatText(msg, color)
-    local text = UIParent:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    local holder = CreateFrame("Frame", nil, UIParent)
+    holder:SetSize(1, 1)
+    holder:SetPoint("CENTER", UIParent, "CENTER", 0, 100)
+
+    local text = holder:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     text:SetText(msg)
     text:SetTextColor(unpack(color or {1, 1, 1}))
-    text:SetPoint("CENTER", UIParent, "CENTER", 0, 100)
+    text:SetPoint("CENTER", holder, "CENTER")
+    text:Show()
 
-    local anim = CreateAnimationGroup(text)
-    local move = anim:CreateAnimation("Translation")
-    move:SetOffset(0, 50)
-    move:SetDuration(1)
-    local fade = anim:CreateAnimation("Alpha")
-    fade:SetFromAlpha(1)
-    fade:SetToAlpha(0)
-    fade:SetDuration(1)
+    local elapsed = 0
+    local duration = 1.5
+    local speedY = 40 -- pixels to move upward
 
-    anim:SetScript("OnFinished", function()
-        text:Hide()
-        text:SetParent(nil)
+    holder:SetScript("OnUpdate", function(self, e)
+        elapsed = elapsed + e
+        local offset = speedY * (elapsed / duration)
+        self:SetPoint("CENTER", UIParent, "CENTER", 0, 100 + offset)
+        text:SetAlpha(1 - (elapsed / duration))
+        if elapsed >= duration then
+            self:SetScript("OnUpdate", nil)
+            text:Hide()
+            self:Hide()
+            self:SetParent(nil)
+        end
     end)
-    anim:Play()
 end
 
--- Make accessible to other files
 MyCombatTextEngine = MyCombatTextEngine or {}
 MyCombatTextEngine.Show = ShowCombatText
