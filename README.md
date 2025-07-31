@@ -4,7 +4,6 @@ _Modular combat text enhancer for World of Warcraft: The Burning Crusade Classic
 
 ## 🔧 Features
 
-- Forces "Enable Floating Combat Text" CVar on login
 - Displays floating combat feedback via customizable animation
 - Replicates key combat text messages: dodges, auras, death, and more
 - Optional toggles for event types via config
