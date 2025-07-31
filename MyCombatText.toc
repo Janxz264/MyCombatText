@@ -5,7 +5,6 @@
 ## Version: 0.1
 ## SavedVariables: MyCombatTextDB
 
-cvars.lua
 config.lua
 textengine.lua
 events.lua
